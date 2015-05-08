@@ -12,9 +12,9 @@
 static NSUInteger const kWidth = 80;
 
 @interface GKPopLoadingView ()
-@property (nonatomic, strong) UIWindow *overlayWindow;
-@property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
-@property (nonatomic, strong) UILabel *textLabel;
+@property (nonatomic, strong) UIWindow* overlayWindow;
+@property (nonatomic, strong) UIActivityIndicatorView* indicatorView;
+@property (nonatomic, strong) UILabel* textLabel;
 @property (nonatomic) BOOL visible;
 @end
 
@@ -23,7 +23,8 @@ static NSUInteger const kWidth = 80;
 #pragma mark -
 #pragma mark Properties
 
-- (UIWindow *)overlayWindow {
+- (UIWindow*)overlayWindow
+{
     if (_overlayWindow) {
         return _overlayWindow;
     }
@@ -35,7 +36,8 @@ static NSUInteger const kWidth = 80;
     return _overlayWindow;
 }
 
-- (UILabel *)textLabel {
+- (UILabel*)textLabel
+{
     if (_textLabel) {
         return _textLabel;
     }
@@ -50,7 +52,8 @@ static NSUInteger const kWidth = 80;
     return _textLabel;
 }
 
-- (UIActivityIndicatorView *)indicatorView {
+- (UIActivityIndicatorView*)indicatorView
+{
     if (_indicatorView) {
         return _indicatorView;
     }
@@ -62,33 +65,35 @@ static NSUInteger const kWidth = 80;
 #pragma mark -
 #pragma mark Private Methods
 
-- (void)_showAnimation {
+- (void)_showAnimation
+{
 
-    POPSpringAnimation *scale = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
-    scale.fromValue = [NSValue valueWithCGSize:CGSizeMake(0.f,0.f)];
+    POPSpringAnimation* scale = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
+    scale.fromValue = [NSValue valueWithCGSize:CGSizeMake(0.f, 0.f)];
     scale.toValue = [NSValue valueWithCGSize:CGSizeMake(1.f, 1.f)];
 
     scale.springBounciness = 12.0;
     scale.springSpeed = 6.0;
 
-    POPBasicAnimation *opacity = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerOpacity];
+    POPBasicAnimation* opacity = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerOpacity];
     opacity.toValue = @(1.0);
 
     [self.layer pop_addAnimation:scale forKey:@"scale"];
     [self.layer pop_addAnimation:opacity forKey:@"opacity"];
 }
 
-- (void)_hideAnimation {
+- (void)_hideAnimation
+{
 
     __weak typeof(self) weakSelf = self;
-    void(^completionBlock)(POPAnimation *, BOOL) = ^(POPAnimation *animation, BOOL finished) {
+    void (^completionBlock)(POPAnimation*, BOOL) = ^(POPAnimation* animation, BOOL finished) {
         [weakSelf _completionBlock];
     };
 
-    POPBasicAnimation *scale = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
+    POPBasicAnimation* scale = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
     scale.toValue = [NSValue valueWithCGSize:CGSizeMake(1.3, 1.3)];
 
-    POPBasicAnimation *opacity = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerOpacity];
+    POPBasicAnimation* opacity = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerOpacity];
     opacity.toValue = @(0.0);
     opacity.completionBlock = completionBlock;
 
@@ -96,7 +101,8 @@ static NSUInteger const kWidth = 80;
     [self.layer pop_addAnimation:opacity forKey:@"opacity"];
 }
 
-- (void)_completionBlock {
+- (void)_completionBlock
+{
     [self.layer removeAllAnimations];
 
     [self removeFromSuperview];
@@ -105,17 +111,17 @@ static NSUInteger const kWidth = 80;
     [self _activateAppWindow];
 }
 
-
 #pragma mark -
 #pragma mark Initialization
 
-- (instancetype)init {
-	if((self = [super init])) {
-		// Initialization code
-		self.backgroundColor = [UIColor clearColor];
+- (instancetype)init
+{
+    if ((self = [super init])) {
+        // Initialization code
+        self.backgroundColor = [UIColor clearColor];
         self.frame = CGRectMake(0, 0, kWidth, kWidth);
         self.center = CGPointMake(CGRectGetWidth(self.overlayWindow.bounds) / 2, CGRectGetHeight(self.overlayWindow.bounds) / 2);
-        
+
         self.layer.cornerRadius = 5.f;
         self.backgroundColor = [UIColor colorWithRed:0.f green:0.f blue:0.f alpha:0.75];
 
@@ -123,20 +129,22 @@ static NSUInteger const kWidth = 80;
         [self addSubview:self.textLabel];
 
         [self.indicatorView startAnimating];
-        
+
         self.visible = NO;
-	}
-	return self;
+    }
+    return self;
 }
 
-- (void)layoutSubviews {
+- (void)layoutSubviews
+{
     [super layoutSubviews];
 
     CGFloat w = CGRectGetWidth(self.frame);
+    CGFloat h = CGRectGetHeight(self.frame);
 
-    CGRect bounds = {CGPointZero, self.indicatorView.frame.size};
+    CGRect bounds = { CGPointZero, self.indicatorView.frame.size };
     self.indicatorView.bounds = bounds;
-    self.indicatorView.layer.position = CGPointMake(w/2, 34);
+    self.indicatorView.layer.position = CGPointMake(w / 2, h / 2);
 
     self.textLabel.frame = CGRectMake(2, CGRectGetMaxY(self.indicatorView.frame) + 10, w - 4, self.textLabel.font.lineHeight);
 }
@@ -144,7 +152,8 @@ static NSUInteger const kWidth = 80;
 #pragma mark -
 #pragma mark Public Methods
 
-- (void)show:(BOOL)show withTitle:(NSString *)title;{
+- (void)show:(BOOL)show withTitle:(NSString*)title;
+{
 
     self.textLabel.text = title;
 
@@ -165,7 +174,8 @@ static NSUInteger const kWidth = 80;
 
         [self _registerNotifications];
         [self _showAnimation];
-    } else {
+    }
+    else {
 
         [self _hideAnimation];
         [self _unregisterNotifications];
@@ -175,7 +185,8 @@ static NSUInteger const kWidth = 80;
 #pragma mark -
 #pragma mark Rotation Methods
 
-- (void)_positionAlert:(NSNotification*)notification {
+- (void)_positionAlert:(NSNotification*)notification
+{
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     CGRect orientationFrame = [UIScreen mainScreen].bounds;
     CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
@@ -198,46 +209,51 @@ static NSUInteger const kWidth = 80;
     posY = floor(orientationFrame.size.height / 2);
 
     switch (orientation) {
-        case UIInterfaceOrientationPortraitUpsideDown:
-            rotateAngle = M_PI;
-            newCenter = CGPointMake(posX, orientationFrame.size.height - posY);
-            break;
-        case UIInterfaceOrientationLandscapeLeft:
-            rotateAngle = -M_PI / 2.0f;
-            newCenter = CGPointMake(posY, posX);
-            break;
-        case UIInterfaceOrientationLandscapeRight:
-            rotateAngle = M_PI / 2.0f;
-            newCenter = CGPointMake(orientationFrame.size.height - posY, posX);
-            break;
-        default: // as UIInterfaceOrientationPortrait
-            rotateAngle = 0.0;
-            newCenter = CGPointMake(posX, posY);
-            break;
+    case UIInterfaceOrientationPortraitUpsideDown:
+        rotateAngle = M_PI;
+        newCenter = CGPointMake(posX, orientationFrame.size.height - posY);
+        break;
+    case UIInterfaceOrientationLandscapeLeft:
+        rotateAngle = -M_PI / 2.0f;
+        newCenter = CGPointMake(posY, posX);
+        break;
+    case UIInterfaceOrientationLandscapeRight:
+        rotateAngle = M_PI / 2.0f;
+        newCenter = CGPointMake(orientationFrame.size.height - posY, posX);
+        break;
+    default: // as UIInterfaceOrientationPortrait
+        rotateAngle = 0.0;
+        newCenter = CGPointMake(posX, posY);
+        break;
     }
 
     self.transform = CGAffineTransformMakeRotation(rotateAngle);
     self.center = newCenter;
 }
 
-- (void)_registerNotifications {
-    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+- (void)_registerNotifications
+{
+    NSNotificationCenter* notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter addObserver:self selector:@selector(_positionAlert:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
 }
 
-- (void)_unregisterNotifications {
-    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+- (void)_unregisterNotifications
+{
+    NSNotificationCenter* notificationCenter = [NSNotificationCenter defaultCenter];
 
     [notificationCenter removeObserver:self name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
 }
 
-- (void)_activateAppWindow {
-    [[UIApplication sharedApplication].windows enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(UIWindow *window, NSUInteger idx, BOOL *stop) {
-        if ([window isKindOfClass:[UIWindow class]] && window.windowLevel == UIWindowLevelNormal) {
-            [window makeKeyWindow];
-            *stop = YES;
-        }
-    }];
+- (void)_activateAppWindow
+{
+    [[UIApplication sharedApplication]
+            .windows enumerateObjectsWithOptions:NSEnumerationReverse
+                                      usingBlock:^(UIWindow* window, NSUInteger idx, BOOL* stop) {
+                                          if ([window isKindOfClass:[UIWindow class]] && window.windowLevel == UIWindowLevelNormal) {
+                                              [window makeKeyWindow];
+                                              *stop = YES;
+                                          }
+                                      }];
 }
 
 @end
