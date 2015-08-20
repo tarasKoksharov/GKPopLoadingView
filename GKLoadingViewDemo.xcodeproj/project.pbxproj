@@ -36,8 +36,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		50446FE816B4372098912685 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		5B9932B3DCCB7162F893CAB3 /* GKPopLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKPopLoadingView.h; sourceTree = "<group>"; };
 		5B99383A1AE72F8BE2DB10D3 /* GKPopLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKPopLoadingView.m; sourceTree = "<group>"; };
+		6B2501A4B8AE169A59F6C1CD /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		C1B4ABD919279D7E00045CD3 /* GKLoadingViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GKLoadingViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1B4ABDC19279D7E00045CD3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C1B4ABDE19279D7E00045CD3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -58,7 +60,6 @@
 		C1B4AC0519279D7F00045CD3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C1B4AC0719279D7F00045CD3 /* GKLoadingViewDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKLoadingViewDemoTests.m; sourceTree = "<group>"; };
 		D367B42A0399446FA49AB322 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		FD504C052E0D49EF9DA1E864 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +104,7 @@
 				C1B4ABDB19279D7E00045CD3 /* Frameworks */,
 				C1B4ABDA19279D7E00045CD3 /* Products */,
 				5B993E71526A222FD48CA2A9 /* Classes */,
-				FD504C052E0D49EF9DA1E864 /* Pods.xcconfig */,
+				C525A0862EBE1F19FB3D1C38 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -169,6 +170,15 @@
 				C1B4AC0419279D7F00045CD3 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C525A0862EBE1F19FB3D1C38 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6B2501A4B8AE169A59F6C1CD /* Pods.debug.xcconfig */,
+				50446FE816B4372098912685 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,8 +247,6 @@
 			mainGroup = C1B4ABD019279D7E00045CD3;
 			productRefGroup = C1B4ABDA19279D7E00045CD3 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-			);
 			projectRoot = "";
 			targets = (
 				C1B4ABD819279D7E00045CD3 /* GKLoadingViewDemo */,
@@ -296,7 +304,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -431,7 +439,7 @@
 		};
 		C1B4AC0C19279D7F00045CD3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FD504C052E0D49EF9DA1E864 /* Pods.xcconfig */;
+			baseConfigurationReference = 6B2501A4B8AE169A59F6C1CD /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -445,7 +453,7 @@
 		};
 		C1B4AC0D19279D7F00045CD3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FD504C052E0D49EF9DA1E864 /* Pods.xcconfig */;
+			baseConfigurationReference = 50446FE816B4372098912685 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -516,6 +524,7 @@
 				C1B4AC0D19279D7F00045CD3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C1B4AC0E19279D7F00045CD3 /* Build configuration list for PBXNativeTarget "GKLoadingViewDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +533,7 @@
 				C1B4AC1019279D7F00045CD3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

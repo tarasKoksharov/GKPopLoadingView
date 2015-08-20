@@ -13,8 +13,7 @@ static NSUInteger const kWidth = 80;
 
 @interface GKPopLoadingView ()
 @property (nonatomic, strong) UIWindow* overlayWindow;
-@property (nonatomic, strong) UIActivityIndicatorView* indicatorView;
-@property (nonatomic, strong) UILabel* textLabel;
+@property (nonatomic, strong) UIImageView* indicatorView;
 @property (nonatomic) BOOL visible;
 @end
 
@@ -36,29 +35,13 @@ static NSUInteger const kWidth = 80;
     return _overlayWindow;
 }
 
-- (UILabel*)textLabel
-{
-    if (_textLabel) {
-        return _textLabel;
-    }
-
-    _textLabel = [UILabel new];
-    _textLabel.font = [UIFont boldSystemFontOfSize:12];
-    _textLabel.backgroundColor = [UIColor clearColor];
-    _textLabel.textColor = [UIColor whiteColor];
-    _textLabel.textAlignment = NSTextAlignmentCenter;
-    _textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-
-    return _textLabel;
-}
-
-- (UIActivityIndicatorView*)indicatorView
+- (UIImageView*)indicatorView
 {
     if (_indicatorView) {
         return _indicatorView;
     }
 
-    _indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    _indicatorView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bar-loading"]];
     return _indicatorView;
 }
 
@@ -111,6 +94,21 @@ static NSUInteger const kWidth = 80;
     [self _activateAppWindow];
 }
 
+- (void)rotateSpinningView
+{
+    [UIView animateWithDuration:1.0
+        delay:0
+        options:UIViewAnimationOptionCurveLinear
+        animations:^{
+            [self.indicatorView setTransform:CGAffineTransformRotate(self.indicatorView.transform, M_PI_2)];
+        }
+        completion:^(BOOL finished) {
+            if (finished && !CGAffineTransformEqualToTransform(self.indicatorView.transform, CGAffineTransformIdentity)) {
+                [self rotateSpinningView];
+            }
+        }];
+}
+
 #pragma mark -
 #pragma mark Initialization
 
@@ -118,17 +116,11 @@ static NSUInteger const kWidth = 80;
 {
     if ((self = [super init])) {
         // Initialization code
-        self.backgroundColor = [UIColor clearColor];
-        self.frame = CGRectMake(0, 0, kWidth, kWidth);
-        self.center = CGPointMake(CGRectGetWidth(self.overlayWindow.bounds) / 2, CGRectGetHeight(self.overlayWindow.bounds) / 2);
+        self.frame = [UIScreen mainScreen].bounds;
 
-        self.layer.cornerRadius = 5.f;
         self.backgroundColor = [UIColor colorWithRed:0.f green:0.f blue:0.f alpha:0.75];
 
         [self addSubview:self.indicatorView];
-        [self addSubview:self.textLabel];
-
-        [self.indicatorView startAnimating];
 
         self.visible = NO;
     }
@@ -142,11 +134,7 @@ static NSUInteger const kWidth = 80;
     CGFloat w = CGRectGetWidth(self.frame);
     CGFloat h = CGRectGetHeight(self.frame);
 
-    CGRect bounds = { CGPointZero, self.indicatorView.frame.size };
-    self.indicatorView.bounds = bounds;
     self.indicatorView.layer.position = CGPointMake(w / 2, h / 2);
-
-    self.textLabel.frame = CGRectMake(2, CGRectGetMaxY(self.indicatorView.frame) + 10, w - 4, self.textLabel.font.lineHeight);
 }
 
 #pragma mark -
@@ -154,8 +142,6 @@ static NSUInteger const kWidth = 80;
 
 - (void)show:(BOOL)show withTitle:(NSString*)title;
 {
-
-    self.textLabel.text = title;
 
     if (self.visible == show && self.visible) {
         return;
@@ -171,6 +157,8 @@ static NSUInteger const kWidth = 80;
 
         [self.overlayWindow addSubview:self];
         [self.overlayWindow makeKeyAndVisible];
+
+        [self rotateSpinningView];
 
         [self _registerNotifications];
         [self _showAnimation];
