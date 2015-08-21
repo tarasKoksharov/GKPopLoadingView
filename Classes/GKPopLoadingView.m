@@ -55,9 +55,6 @@ static NSUInteger const kWidth = 80;
     scale.fromValue = [NSValue valueWithCGSize:CGSizeMake(0.f, 0.f)];
     scale.toValue = [NSValue valueWithCGSize:CGSizeMake(1.f, 1.f)];
 
-    scale.springBounciness = 12.0;
-    scale.springSpeed = 6.0;
-
     POPBasicAnimation* opacity = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerOpacity];
     opacity.toValue = @(1.0);
 
