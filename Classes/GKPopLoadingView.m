@@ -117,9 +117,9 @@
 
         CGFloat w = CGRectGetWidth(self.frame);
         CGFloat h = CGRectGetHeight(self.frame);
-        
+
         self.indicatorView.layer.position = CGPointMake(w / 2, h / 2);
-        
+
         [self addSubview:self.indicatorView];
 
         self.visible = NO;
@@ -146,6 +146,11 @@
     if (self.visible == show && self.visible) {
         return;
     }
+
+    CGFloat w = CGRectGetWidth(self.frame);
+    CGFloat h = CGRectGetHeight(self.frame);
+
+    self.indicatorView.layer.position = CGPointMake(w / 2, h / 2);
 
     self.visible = show;
 
