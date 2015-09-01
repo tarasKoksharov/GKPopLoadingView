@@ -9,8 +9,6 @@
 #import "POPBasicAnimation.h"
 #import "POPSpringAnimation.h"
 
-static NSUInteger const kWidth = 80;
-
 @interface GKPopLoadingView ()
 @property (nonatomic, strong) UIWindow* overlayWindow;
 @property (nonatomic, strong) UIImageView* indicatorView;
@@ -117,6 +115,11 @@ static NSUInteger const kWidth = 80;
 
         self.backgroundColor = [UIColor colorWithRed:0.f green:0.f blue:0.f alpha:0.75];
 
+        CGFloat w = CGRectGetWidth(self.frame);
+        CGFloat h = CGRectGetHeight(self.frame);
+        
+        self.indicatorView.layer.position = CGPointMake(w / 2, h / 2);
+        
         [self addSubview:self.indicatorView];
 
         self.visible = NO;
