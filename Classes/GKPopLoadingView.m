@@ -98,7 +98,7 @@
             [self.indicatorView setTransform:CGAffineTransformRotate(self.indicatorView.transform, M_PI_2)];
         }
         completion:^(BOOL finished) {
-            if (finished && !CGAffineTransformEqualToTransform(self.indicatorView.transform, CGAffineTransformIdentity)) {
+            if (finished) {
                 [self rotateSpinningView];
             }
         }];
