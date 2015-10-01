@@ -110,7 +110,10 @@
 - (instancetype)init
 {
     if ((self = [super init])) {
+
         // Initialization code
+        self.layer.opacity = 0.0f;
+
         self.frame = [UIScreen mainScreen].bounds;
 
         self.backgroundColor = [UIColor colorWithRed:0.f green:0.f blue:0.f alpha:0.75];
