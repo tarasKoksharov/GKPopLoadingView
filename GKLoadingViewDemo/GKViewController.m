@@ -10,7 +10,7 @@
 #import "GKPopLoadingView.h"
 
 @interface GKViewController ()
-@property (nonatomic, strong) GKPopLoadingView *loadingView;
+@property (nonatomic, strong) GKPopLoadingView* loadingView;
 @end
 
 @implementation GKViewController
@@ -18,7 +18,8 @@
 #pragma mark -
 #pragma mark Property
 
-- (GKPopLoadingView *)loadingView {
+- (GKPopLoadingView*)loadingView
+{
     if (!_loadingView) {
         _loadingView = [[GKPopLoadingView alloc] init];
     }
@@ -28,16 +29,16 @@
 #pragma mark -
 #pragma mark Public Methods
 
-- (IBAction)showLoadingView:(id)sender {
+- (IBAction)showLoadingView:(id)sender
+{
     [self.loadingView show:YES withTitle:@"Loading..."];
 
     [self performSelector:@selector(hideLoadingView) withObject:nil afterDelay:4];
 }
 
-- (void)hideLoadingView {
+- (void)hideLoadingView
+{
     [self.loadingView show:NO withTitle:@"Loading..."];
 }
-
-
 
 @end

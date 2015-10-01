@@ -147,13 +147,6 @@
         return;
     }
 
-    CGFloat w = CGRectGetWidth(self.frame);
-    CGFloat h = CGRectGetHeight(self.frame);
-
-    self.indicatorView.layer.position = CGPointMake(w / 2, h / 2);
-
-    self.visible = show;
-
     [self _positionAlert:nil];
 
     if (show) {
@@ -173,6 +166,8 @@
         [self _hideAnimation];
         [self _unregisterNotifications];
     }
+
+    self.visible = show;
 }
 
 #pragma mark -
