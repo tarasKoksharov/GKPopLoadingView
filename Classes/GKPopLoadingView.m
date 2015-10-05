@@ -133,11 +133,6 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-
-    CGFloat w = CGRectGetWidth(self.frame);
-    CGFloat h = CGRectGetHeight(self.frame);
-
-    self.indicatorView.layer.position = CGPointMake(w / 2, h / 2);
 }
 
 #pragma mark -
